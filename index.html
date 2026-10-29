@@ -3,301 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BrewHause</title>
-    <style>
-        :root {
-            --color-background: #f7f3ec;
-            --color-surface: #fffdf9;
-            --color-text: #2d241e;
-            --color-muted: #756a62;
-            --color-accent: #a34f2b;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 15px;
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            background-color: var(--color-background);
-            color: var(--color-text);
-        }
-
-        header {
-            background-color: var(--color-surface);
-        }
-
-        nav {
-            display: flex;
-            min-height: 72px;
-            align-items: center;
-            justify-content: flex-start;
-            flex-wrap: wrap;
-            gap: 28px;
-            padding: 12px 24px;
-        }
-
-        nav a {
-            color: var(--color-text);
-            font-weight: 600;
-            text-decoration: none;
-            /* Makes the color change smooth and gradual over 0.2 seconds
-             (does not change the color by itself) */
-            transition: color 0.2s ease, background-color 0.2s ease;
-        }
-        /* Changes some properties of the element when hovering the mouse over it */
-        nav a:hover {
-            color: var(--color-accent);
-        }
-
-        nav a:last-child {
-            padding: 10px 18px;
-            border-radius: 999px;
-            background-color: var(--color-accent);
-            color: var(--color-surface);
-        }
-
-        nav a:last-child:hover {
-            background-color: var(--color-text);
-            color: var(--color-surface);
-        }
-
-        nav a:first-child {
-            margin-right: auto;
-            color: var(--color-accent);
-            font-size: 1.35rem;
-            font-weight: 800;
-        }
-
-        .hero {
-            margin: 24px 0;
-            /* Responsive padding: 
-           - Top/Bottom: min (40px), preferred (7vw), max (80px)
-           - Left/Right: min (24px), preferred (6vw), max (72px) */
-            padding: clamp(40px, 7vw, 80px) clamp(24px, 6vw, 72px);
-            /* Border-radius: Corner rounding
-             - turns sharp 90-degree corners into smooth, rounded edges */
-            border-radius: 40px;
-            background-color: var(--color-surface);
-        }
-
-        .hero h1 {
-            margin: 0 0 16px;
-            /* Responsive font size: scales smoothly 
-            between min, preferred (vw), and max values */
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            line-height: 1.1;
-        }
-
-        .hero p {
-            max-width: 620px;
-            margin: 0 0 24px;
-            color: var(--color-muted);
-            font-size: 1.15rem;
-        }
-
-        .hero-button {
-            display: inline-block;
-            padding: 12px 22px;
-            border-radius: 999px;
-            background-color: var(--color-accent);
-            color: var(--color-surface);
-            font-weight: 700;
-            text-decoration: none;
-        }
-
-        .hero-button:hover {
-            background-color: var(--color-text);
-        }
-
-        .menu-category {
-            /* Main grid container: splits the menu category into 2 equal columns */
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 16px;
-            margin: 32px 0;
-        }
-        /* Category section main heading (h3) */
-        .menu-category h3 {
-            grid-column: 1 / -1;
-            margin: 0;
-        }
-        /* Individual item card */
-        .menu-category article {
-            padding: 20px;
-            border: 1px solid #e6ddd3;
-            border-radius: 14px;
-            background-color: var(--color-surface);
-        }
-        /* Individual item title (h4 - smaller sub-heading inside the card) */
-        .menu-category article h4 {
-            margin-top: 0;
-            color: var(--color-accent);
-        }
-
-        #about {
-            text-align: center;
-            margin: 72px 0;
-            padding: 40px 24px;
-            border-top: 1px solid #e6ddd3;
-            border-bottom: 1px solid #e6ddd3;
-        }
-
-        #about h2 {
-            margin: 0 0 16px;
-        }
-
-        #about p {
-            max-width: 680px;
-            margin: 0 auto;
-            color: var(--color-muted);
-            font-size: 1.1rem;
-        }
-
-        footer {
-            margin-top: 72px;
-            padding: 40px 32px 20px;
-            background-color: #e2d4c4;
-            color: var(--color-text);
-        }
-
-        .footer-details {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 32px;
-        }
-
-        footer h2 {
-            margin: 0 0 12px;
-            font-size: 1.15rem;
-            color: var(--color-accent);
-        }
-
-        footer address {
-            font-style: normal;
-        }
-
-        .footer-copyright {
-            margin: 32px 0 0;
-            padding-top: 16px;
-            border-top: 1px solid rgba(45, 36, 30, 0.15);
-            color: var(--color-muted);
-            font-size: 0.9rem;
-        }
-
-        #reservation {
-            max-width: 850px;
-            margin: 72px auto;
-            padding: 40px;
-            border-radius: 24px;
-            background-color: var(--color-surface);
-        }
-
-        #reservation h2 {
-            margin-top: 0;
-        }
-
-        #reservation form {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 20px;
-        }
-
-        #reservation form p {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin: 0;
-        }
-
-        #reservation label {
-            font-weight: 600;
-        }
-
-        #reservation input,
-        #reservation select {
-            width: 100%;
-            min-height: 44px;
-            padding: 8px 12px;
-            border: 1px solid #d8cfc4;
-            border-radius: 8px;
-            background-color: var(--color-background);
-            color: var(--color-text);
-            font: inherit;
-        }
-
-        #reservation button {
-            grid-column: 1 / -1;
-            justify-self: start;
-            padding: 12px 22px;
-            border: 0;
-            border-radius: 999px;
-            background-color: var(--color-accent);
-            color: var(--color-surface);
-            font: inherit;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        #reservation button:hover {
-            background-color: var(--color-text);
-        }
-
-        @media (max-width: 700px) {
-            body {
-                margin: 10px;
-            }
-
-            nav {
-                gap: 12px;
-                padding: 12px 16px;
-            }
-
-            nav a:first-child {
-                width: 100%;
-                margin-right: 0;
-            }
-
-            .hero {
-                border-radius: 24px;
-            }
-
-            .menu-category {
-                grid-template-columns: minmax(0, 1fr);
-            }
-
-            #about {
-                margin: 48px 0;
-                padding: 32px 16px;
-            }
-
-            footer {
-                margin-top: 48px;
-                padding: 32px 20px 18px;
-            }
-
-            .footer-details {
-                grid-template-columns: minmax(0, 1fr);
-                gap: 20px;
-            }
-
-            #reservation {
-                margin: 48px auto;
-                padding: 28px 20px;
-            }
-
-            #reservation form {
-                grid-template-columns: minmax(0, 1fr);
-            }
-        }
-    </style>
+    <title>Savora</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <nav>
-            <a href="#home">BrewHause</a>
+            <a href="#home">Savora</a>
             <a href="#menu">Our menu</a>
             <a href="#about">About</a>
             <a href="#visit">Visit us</a>
@@ -306,105 +18,137 @@
     </header>
 
     <main>
+        <!-- Grid places the welcome text and food photo side by side. -->
         <section class="hero" id="home">
-            <h1>BrewHause</h1>
-            <p>Fresh food, carefully brewed coffee, and a warm place to gather.</p>
-            <a class="hero-button" href="#reservation">Book a table</a>
+            <div class="hero-content">
+                <p class="eyebrow">Fresh ingredients. Bold flavors.</p>
+                <h1>Savor every moment.</h1>
+                <p>Seasonal ingredients, flavorful dishes, and a welcoming atmosphere. Savora is a place to enjoy great food and even better company.</p>
+                <a class="hero-button" href="#menu">Explore our menu &rarr;</a>
+            </div>
+            <img src="images/salmon.jpg" alt="Salmon served with asparagus and rice on a plate" width="1400" height="933">
         </section>
 
         <section id="menu">
-            <h2>Our menu</h2>
-            <section class="menu-category">
+            <p class="eyebrow">Our menu</p>
+            <h2>Made to be enjoyed</h2>
+            <p class="section-intro">From the first bite to the last, find your new favorite.</p>
+            <nav class="menu-links" aria-label="Menu categories">
+                <a href="#starters">Starters</a>
+                <a href="#main-dishes">Main dishes</a>
+                <a href="#desserts">Desserts</a>
+            </nav>
+            <section class="menu-category" id="starters">
                 <h3>Starters</h3>
                 <article>
+                    <img class="dish-image" src="images/tomato-soup.jpg" alt="Tomato soup garnished with fresh leaves and a breadstick" width="1400" height="934" loading="lazy">
                     <h4>Roasted tomato soup</h4>
                     <p>Slow-roasted tomatoes with fresh herbs and warm sourdough.</p>
-                    <p>$8</p>
+                    <p class="price">$8</p>
                 </article>
                 <article>
+                    <img class="dish-image" src="images/calamari.jpg" alt="Golden fried calamari rings with lemon and dipping sauce" width="1200" height="800" loading="lazy">
                     <h4>Crispy calamari</h4>
                     <p>Lightly fried calamari served with lemon and herb aioli.</p>
-                    <p>$12</p>
+                    <p class="price">$12</p>
                 </article>
                 <article>
+                    <img class="dish-image" src="images/burrata-toast.jpg" alt="Burrata cheese with herbs, olive oil and crisp toast" width="1200" height="1601" loading="lazy">
                     <h4>Burrata toast</h4>
                     <p>Fresh burrata, ripe tomatoes, and basil on toasted sourdough.</p>
-                    <p>$11</p>
+                    <p class="price">$11</p>
                 </article>
                 <article>
+                    <img class="dish-image" src="images/olives.jpg" alt="Green and black olives arranged in silver serving bowls" width="1200" height="1800" loading="lazy">
                     <h4>House olives</h4>
                     <p>Mixed olives marinated with citrus, garlic, and rosemary.</p>
-                    <p>$6</p>
+                    <p class="price">$6</p>
                 </article>
             </section>
 
-            <section class="menu-category">
+            <section class="menu-category" id="main-dishes">
                 <h3>Main Dishes</h3>
                 <article>
+                    <img class="dish-image" src="images/roasted-chicken.jpg" alt="Roasted chicken with vegetables and lemon in a baking dish" width="1200" height="800" loading="lazy">
                     <h4>Herb-roasted chicken</h4>
                     <p>Roasted chicken with seasonal vegetables and creamy mashed potatoes.</p>
-                    <p>$22</p>
+                    <p class="price">$22</p>
                 </article>
                 <article>
+                    <img class="dish-image" src="images/salmon.jpg" alt="Salmon served with asparagus and rice" width="1400" height="933" loading="lazy">
                     <h4>Pan-seared salmon</h4>
                     <p>Salmon with lemon butter, rice pilaf, and grilled asparagus.</p>
-                    <p>$26</p>
+                    <p class="price">$26</p>
                 </article>
                 <article>
+                    <img class="dish-image" src="images/beef-short-rib.jpg" alt="Braised beef short ribs served on a plate" width="3008" height="2000" loading="lazy">
                     <h4>Slow-braised beef short rib</h4>
                     <p>Beef braised until tender, served with mashed potatoes and roasted carrots.</p>
-                    <p>$29</p>
+                    <p class="price">$29</p>
                 </article>
                 <article>
+                    <img class="dish-image" src="images/mushroom-risotto.jpg" alt="Creamy mushroom risotto served with crispy toppings" width="1200" height="795" loading="lazy">
                     <h4>Mushroom risotto</h4>
                     <p>Creamy Arborio rice with roasted mushrooms, Parmesan, and fresh thyme.</p>
-                    <p>$21</p>
+                    <p class="price">$21</p>
                 </article>
                 <article>
+                    <img class="dish-image" src="images/chicken-pesto-pasta.jpg" alt="Pesto pasta with chicken served in a white dish" width="1200" height="800" loading="lazy">
                     <h4>Chicken pesto pasta</h4>
                     <p>Grilled chicken and penne tossed with basil pesto and Parmesan.</p>
-                    <p>$20</p>
+                    <p class="price">$20</p>
                 </article>
                 <article>
+                    <img class="dish-image" src="images/cauliflower-steak.jpg" alt="Golden roasted cauliflower steaks served on a plate" width="1200" height="1797" loading="lazy">
                     <h4>Roasted cauliflower steak</h4>
                     <p>Spiced cauliflower with herbed yogurt, chickpeas, and toasted almonds.</p>
-                    <p>$18</p>
+                    <p class="price">$18</p>
                 </article>
             </section>
 
-            <section class="menu-category">
+            <section class="menu-category" id="desserts">
                 <h3>Desserts</h3>
                 <article>
+                    <img class="dish-image" src="images/brownie.jpg" alt="Chocolate brownie drizzled with chocolate sauce" width="1400" height="2098" loading="lazy">
                     <h4>Warm chocolate brownie</h4>
                     <p>Rich chocolate brownie served warm with vanilla ice cream.</p>
-                    <p>$9</p>
+                    <p class="price">$9</p>
                 </article>
                 <article>
+                    <img class="dish-image" src="images/cheesecake.jpg" alt="Slice of creamy cheesecake with strawberries and a biscuit base" width="1200" height="1600" loading="lazy">
                     <h4>New York cheesecake</h4>
                     <p>Creamy baked cheesecake with a buttery biscuit base and berry sauce.</p>
-                    <p>$8</p>
+                    <p class="price">$8</p>
                 </article>
                 <article>
+                    <img class="dish-image" src="images/fruit-tart.jpg" alt="Fruit tart topped with mixed berries and kiwi" width="1200" height="1800" loading="lazy">
                     <h4>Seasonal fruit tart</h4>
                     <p>Flaky pastry filled with vanilla cream and fresh seasonal fruit.</p>
-                    <p>$8</p>
+                    <p class="price">$8</p>
                 </article>
                 <article>
+                    <img class="dish-image" src="images/tiramisu.jpg" alt="Tiramisu dusted with cocoa and served with wooden spoons" width="1200" height="800" loading="lazy">
                     <h4>Tiramisu</h4>
                     <p>Espresso-soaked sponge layered with mascarpone and cocoa.</p>
-                    <p>$9</p>
+                    <p class="price">$9</p>
                 </article>
             </section>
         </section>
 
         <section id="about">
-            <h2>About BrewHause</h2>
-            <p>At BrewHause, we bring together freshly prepared food, carefully brewed coffee, and a relaxed place to enjoy good company. Our menu pairs familiar favorites with seasonal ingredients, all made with care and served warm.</p>
+            <div class="about-content">
+                <p class="eyebrow">About Savora</p>
+                <h2>Good food.<br>Great company.</h2>
+                <p>At Savora, we believe that great food brings people together. Our menu pairs familiar favorites with seasonal ingredients, all prepared with care. Whether it is a relaxed lunch or a special occasion, you are always welcome at our table.</p>
+                <a class="hero-button" href="#reservation">Reserve a table &rarr;</a>
+            </div>
+            <img src="images/restaurant.jpg" alt="Contemporary dining space with hanging plants and tables" width="1400" height="2100" loading="lazy">
         </section>
 
         <section id="reservation">
-            <h2>Make a reservation</h2>
-            <p>Planning a visit? Reserve your table and we will have a seat ready for you.</p>
+            <p class="eyebrow">Reservations</p>
+            <h2>A seat at Savora</h2>
+            <p>Good food is worth sharing. Plan your next visit with us.</p>
 
             <!--
                 id: Unique identifier for the field; the label's for value matches it.
@@ -414,7 +158,7 @@
             <form>
                 <p>
                     <label for="guest-name">Your name</label>
-                    <input type="text" id="guest-name" name="guest-name" required>
+                    <input type="text" id="guest-name" name="guest-name" placeholder="Your name" autocomplete="name" required>
                 </p>
 
                 <p>
@@ -448,7 +192,11 @@
     <footer>
         <div class="footer-details" id="visit">
             <section>
-                <h2>Visit BrewHause</h2>
+                <h2 class="footer-brand">Savora</h2>
+                <p>Good food. Great company.</p>
+            </section>
+            <section>
+                <h2>Visit Savora</h2>
                 <address>123 Coffee Street, Riyadh, Saudi Arabia</address>
             </section>
 
@@ -459,7 +207,7 @@
             </section>
         </div>
 
-        <p class="footer-copyright">&copy; 2026 BrewHause</p>
+        <p class="footer-copyright">&copy; 2026 Savora</p>
     </footer>
 </body>
 </html>
