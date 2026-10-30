@@ -1,0 +1,25 @@
+{
+  "name": "mayerfeld-practicum-program",
+  "version": "1.0.0",
+  "description": "**Savor every moment.**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/turkim456/Mayerfeld-Practicum-Program-AI-Assisted-Frontend-Developer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/turkim456/Mayerfeld-Practicum-Program-AI-Assisted-Frontend-Developer/issues"
+  },
+  "homepage": "https://github.com/turkim456/Mayerfeld-Practicum-Program-AI-Assisted-Frontend-Developer#readme",
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  }
+}
