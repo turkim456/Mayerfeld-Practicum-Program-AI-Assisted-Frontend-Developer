@@ -55,3 +55,9 @@ Savora stands for food prepared with care, hospitality that feels personal, and 
 Our goal is to create a restaurant experience people look forward to returning to, where familiar favorites and new discoveries sit side by side.
 
 **Fresh flavors. Warm welcomes. Memorable moments.**
+
+## Check for horizontal scrolling
+
+Run `npm.cmd run dev`, open the Vite URL, then open browser DevTools and enable the device toolbar. Choose a viewport width and paste the contents of `scripts/check-horizontal-scroll.js` into the Console. It reports PASS or the elements extending beyond the viewport. No extra libraries are required.
+
+Check narrow screens and both sides of each breakpoint: 240, 280, 320, 375, 639, 640, 767, 768, 1023, 1024, 1440, and 1920 pixels. Repeat with each menu filter and after changing a quantity. A passing result covers the viewport and state tested, rather than guaranteeing every possible screen size.
