@@ -1,49 +1,63 @@
+import { useState } from 'react';
 import { dishes } from '../data/dishes.js';
+
+const categories = [
+  { value: 'all', label: 'All' },
+  { value: 'starters', label: 'Starters' },
+  { value: 'main-dishes', label: 'Main dishes' },
+  { value: 'desserts', label: 'Desserts' },
+];
+
 function DishCard({ dish }) {
   return (
     <article className="overflow-hidden rounded border border-border bg-white">
       <img className="h-[230px] w-full object-cover" src={dish.image} alt={dish.alt} width={dish.width} height={dish.height} loading="lazy" />
       <div className="p-5">
-      <h4 className="mb-3 font-serif text-xl font-bold leading-tight">{dish.name}</h4>
-      <p className="mb-4 text-sm text-muted">{dish.description}</p>
-      <p className="text-lg font-bold">${dish.price}</p>
+        <h3 className="mb-3 font-serif text-xl font-bold leading-tight">{dish.name}</h3>
+        <p className="mb-4 text-sm text-muted">{dish.description}</p>
+        <p className="text-lg font-bold">${dish.price}</p>
       </div>
     </article>
   );
 }
 
 export default function Menu() {
+  const [selectedCategory, setSelectedCategory] = useState('all');
+
+  // Show every dish for All, otherwise show only the selected category.
+  const filteredDishes = dishes.filter((dish) =>
+    selectedCategory === 'all' || dish.category === selectedCategory
+  );
+
   return (
     <section id="menu" className="bg-white px-6 py-12 md:py-16">
       <div className="mx-auto max-w-[1216px]">
-      <p className="mb-4 text-xs font-bold uppercase tracking-[3px] text-center text-[#286f5d]">Our menu</p>
-      <h2 className="mb-4 font-serif text-3xl leading-tight md:text-4xl lg:text-5xl text-center">Made to be enjoyed</h2>
-      <p className="mb-6 text-center text-muted">From the first bite to the last, find your new favorite.</p>
-      <nav className="mb-10 flex flex-wrap justify-center gap-5 md:gap-8" aria-label="Menu categories">
-        <a className="border-b-2 border-accent pb-2 hover:border-ink" href="#starters">Starters</a>
-        <a className="border-b-2 border-accent pb-2 hover:border-ink" href="#main-dishes">Main dishes</a>
-        <a className="border-b-2 border-accent pb-2 hover:border-ink" href="#desserts">Desserts</a>
-      </nav>
-      <section className="mt-9 mb-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3" id="starters">
-        <h3 className="col-span-full mb-1 font-serif text-2xl font-bold leading-tight">Starters</h3>
-        {dishes.filter((dish) => dish.category === 'starters').map((dish) => (
-          <DishCard key={dish.id} dish={dish} />
-        ))}
-      </section>
+        <p className="mb-4 text-xs font-bold uppercase tracking-[3px] text-center text-[#286f5d]">Our menu</p>
+        <h2 className="mb-4 font-serif text-3xl leading-tight md:text-4xl lg:text-5xl text-center">Made to be enjoyed</h2>
+        <p className="mb-6 text-center text-muted">From the first bite to the last, find your new favorite.</p>
 
-      <section className="mt-9 mb-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3" id="main-dishes">
-        <h3 className="col-span-full mb-1 font-serif text-2xl font-bold leading-tight">Main Dishes</h3>
-        {dishes.filter((dish) => dish.category === 'main-dishes').map((dish) => (
-          <DishCard key={dish.id} dish={dish} />
-        ))}
-      </section>
+        <div className="mb-10 flex flex-wrap justify-center gap-5 md:gap-8" role="group" aria-label="Menu categories">
+          {categories.map((category) => (
+            <button
+              key={category.value}
+              type="button"
+              onClick={() => setSelectedCategory(category.value)}
+              aria-pressed={selectedCategory === category.value}
+              className="cursor-pointer border-b-2 border-accent pb-2 hover:border-ink aria-pressed:border-ink aria-pressed:font-bold"
+            >
+              {category.label}
+            </button>
+          ))}
+        </div>
 
-      <section className="mt-9 mb-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3" id="desserts">
-        <h3 className="col-span-full mb-1 font-serif text-2xl font-bold leading-tight">Desserts</h3>
-        {dishes.filter((dish) => dish.category === 'desserts').map((dish) => (
-          <DishCard key={dish.id} dish={dish} />
-        ))}
-      </section>
+        <p className="mb-4 text-center text-sm text-muted" aria-live="polite">
+          Showing {filteredDishes.length} dishes
+        </p>
+        <div className="mb-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {filteredDishes.map((dish) => (
+            <DishCard key={dish.id} dish={dish} />
+          ))}
+        </div>
       </div>
     </section>
   );
