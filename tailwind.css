@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+/* Savora's existing colors and fonts. */
+@theme {
+  --font-sans: Arial, sans-serif;
+  --font-serif: Georgia, serif;
+  --color-background: #f3f6f7;
+  --color-ink: #102536;
+  --color-muted: #536471;
+  --color-accent: #a6e2ca;
+  --color-border: #dce5e9;
+}
+
+@layer base {
+  :focus-visible {
+    outline: 3px solid #207b66;
+    outline-offset: 4px;
+  }
+
+  [id] {
+    scroll-margin-top: 24px;
+  }
+}
