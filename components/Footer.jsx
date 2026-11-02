@@ -1,8 +1,8 @@
 export default function Footer() {
   return (
-    <footer className="bg-ink px-6 pt-12 pb-6 text-[#dde7ed]">
+    <footer className="bg-ink px-4 pt-12 pb-6 sm:px-6 text-[#dde7ed]">
       <div className="mx-auto max-w-[1216px]">
-        <div className="grid grid-cols-1 gap-7 md:grid-cols-3 md:gap-10" id="visit">
+        <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10" id="visit">
             <section>
                 <h2 className="mb-4 font-serif text-[2.5rem] font-bold leading-tight text-white">Savora</h2>
                 <p className="mb-2 text-sm">Good food. Great company.</p>

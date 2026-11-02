@@ -38,7 +38,7 @@ export default function Menu() {
   );
 
   return (
-    <section id="menu" className="bg-white px-6 py-12 md:py-16">
+    <section id="menu" className="bg-white px-4 py-12 sm:px-6 md:py-16">
       <div className="mx-auto max-w-[1216px]">
         <p className="mb-4 text-xs font-bold uppercase tracking-[3px] text-center text-[#286f5d]">Our menu</p>
         <h2 className="mb-4 font-serif text-3xl leading-tight md:text-4xl lg:text-5xl text-center">Made to be enjoyed</h2>
@@ -61,7 +61,7 @@ export default function Menu() {
         <p className="mb-4 text-center text-sm text-muted" aria-live="polite">
           Showing {filteredDishes.length} dishes
         </p>
-        <div className="mb-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mb-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {filteredDishes.map((dish) => (
             <DishCard
               key={dish.id}
