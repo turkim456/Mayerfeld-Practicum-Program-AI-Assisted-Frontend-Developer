@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import QuantityStepper from './QuantityStepper.jsx';
 import { dishes } from '../data/dishes.js';
 
 const categories = [
@@ -8,7 +9,7 @@ const categories = [
   { value: 'desserts', label: 'Desserts' },
 ];
 
-function DishCard({ dish }) {
+function DishCard({ dish, quantity, onQuantityChange }) {
   return (
     <article className="overflow-hidden rounded border border-border bg-white">
       <img className="h-[230px] w-full object-cover" src={dish.image} alt={dish.alt} width={dish.width} height={dish.height} loading="lazy" />
@@ -16,6 +17,7 @@ function DishCard({ dish }) {
         <h3 className="mb-3 font-serif text-xl font-bold leading-tight">{dish.name}</h3>
         <p className="mb-4 text-sm text-muted">{dish.description}</p>
         <p className="text-lg font-bold">${dish.price}</p>
+        <QuantityStepper value={quantity} onChange={onQuantityChange} name={dish.name} />
       </div>
     </article>
   );
@@ -23,6 +25,12 @@ function DishCard({ dish }) {
 
 export default function Menu() {
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [quantities, setQuantities] = useState({});
+
+  // Store each dish's quantity by its id, keeping the other quantities.
+  function updateQuantity(dishId, value) {
+    setQuantities((previous) => ({ ...previous, [dishId]: value }));
+  }
 
   // Show every dish for All, otherwise show only the selected category.
   const filteredDishes = dishes.filter((dish) =>
@@ -55,7 +63,12 @@ export default function Menu() {
         </p>
         <div className="mb-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
           {filteredDishes.map((dish) => (
-            <DishCard key={dish.id} dish={dish} />
+            <DishCard
+              key={dish.id}
+              dish={dish}
+              quantity={quantities[dish.id] ?? 0}
+              onQuantityChange={(value) => updateQuantity(dish.id, value)}
+            />
           ))}
         </div>
       </div>
