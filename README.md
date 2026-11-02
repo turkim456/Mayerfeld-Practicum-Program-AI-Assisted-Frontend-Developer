@@ -75,3 +75,10 @@ Use two terminals from the repository root:
 2. `npm.cmd run dev:server` starts Express on port 3001.
 
 `npm.cmd run build` builds the client into `client/dist`.
+
+
+## Server environment
+
+Copy `server/.env.example` to `server/.env` and fill in your own database URL and auth secret. Generate a secret with `node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"`. Never commit the real `.env` file or put secrets in client code.
+
+The server loads its local environment file automatically. On a hosting service, set these variables in the service's environment settings. `BETTER_AUTH_URL` is the public frontend origin when requests are proxied through the frontend, and `CLIENT_ORIGIN` is the allowed frontend origin.
