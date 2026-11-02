@@ -1,14 +1,13 @@
-import './env.js';
-import express from 'express';
+import { app } from './app.js';
+import { db } from './db.js';
 
-const app = express();
 const port = process.env.PORT || 3001;
-
-// A simple check that the server is running (not the database API).
-app.get('/api/health', (request, response) => {
-  response.json({ status: 'ok' });
-});
-
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log('Savora server listening on port ' + port);
 });
+
+function shutdown() {
+  server.close(() => db.end());
+}
+process.on('SIGTERM', shutdown);
+process.on('SIGINT', shutdown);

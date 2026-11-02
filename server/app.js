@@ -1,0 +1,27 @@
+import express from 'express';
+import { db } from './db.js';
+
+export const app = express();
+app.disable('x-powered-by');
+
+app.get('/api/health', async (request, response) => {
+  try {
+    await db.query('SELECT 1');
+    response.json({ status: 'ok', database: 'connected' });
+  } catch {
+    response.status(503).json({ error: 'Database is unavailable.' });
+  }
+});
+
+app.get('/api/dishes', async (request, response) => {
+  try {
+    const result = await db.query('SELECT id, category, name, description, price, image, alt, width, height FROM dishes ORDER BY id');
+    response.json(result.rows.map(dish => ({ ...dish, price: Number(dish.price) })));
+  } catch {
+    response.status(503).json({ error: 'The menu is temporarily unavailable.' });
+  }
+});
+
+app.use('/api', (request, response) => {
+  response.status(404).json({ error: 'API route not found.' });
+});
