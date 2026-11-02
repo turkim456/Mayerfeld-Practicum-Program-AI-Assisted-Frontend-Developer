@@ -1,0 +1,156 @@
+[
+  {
+    "id": 1,
+    "category": "starters",
+    "name": "Roasted tomato soup",
+    "description": "Slow-roasted tomatoes with fresh herbs and warm sourdough.",
+    "price": 8,
+    "image": "/images/tomato-soup.jpg",
+    "alt": "Tomato soup garnished with fresh leaves and a breadstick",
+    "width": 1400,
+    "height": 934
+  },
+  {
+    "id": 2,
+    "category": "starters",
+    "name": "Crispy calamari",
+    "description": "Lightly fried calamari served with lemon and herb aioli.",
+    "price": 12,
+    "image": "/images/calamari.jpg",
+    "alt": "Golden fried calamari rings with lemon and dipping sauce",
+    "width": 1200,
+    "height": 800
+  },
+  {
+    "id": 3,
+    "category": "starters",
+    "name": "Burrata toast",
+    "description": "Fresh burrata, ripe tomatoes, and basil on toasted sourdough.",
+    "price": 11,
+    "image": "/images/burrata-toast.jpg",
+    "alt": "Burrata cheese with herbs, olive oil and crisp toast",
+    "width": 1200,
+    "height": 1601
+  },
+  {
+    "id": 4,
+    "category": "starters",
+    "name": "House olives",
+    "description": "Mixed olives marinated with citrus, garlic, and rosemary.",
+    "price": 6,
+    "image": "/images/olives.jpg",
+    "alt": "Green and black olives arranged in silver serving bowls",
+    "width": 1200,
+    "height": 1800
+  },
+  {
+    "id": 5,
+    "category": "main-dishes",
+    "name": "Herb-roasted chicken",
+    "description": "Roasted chicken with seasonal vegetables and creamy mashed potatoes.",
+    "price": 22,
+    "image": "/images/roasted-chicken.jpg",
+    "alt": "Roasted chicken with vegetables and lemon in a baking dish",
+    "width": 1200,
+    "height": 800
+  },
+  {
+    "id": 6,
+    "category": "main-dishes",
+    "name": "Pan-seared salmon",
+    "description": "Salmon with lemon butter, rice pilaf, and grilled asparagus.",
+    "price": 26,
+    "image": "/images/salmon.jpg",
+    "alt": "Salmon served with asparagus and rice",
+    "width": 1400,
+    "height": 933
+  },
+  {
+    "id": 7,
+    "category": "main-dishes",
+    "name": "Slow-braised beef short rib",
+    "description": "Beef braised until tender, served with mashed potatoes and roasted carrots.",
+    "price": 29,
+    "image": "/images/beef-short-rib.jpg",
+    "alt": "Braised beef short ribs served on a plate",
+    "width": 3008,
+    "height": 2000
+  },
+  {
+    "id": 8,
+    "category": "main-dishes",
+    "name": "Mushroom risotto",
+    "description": "Creamy Arborio rice with roasted mushrooms, Parmesan, and fresh thyme.",
+    "price": 21,
+    "image": "/images/mushroom-risotto.jpg",
+    "alt": "Creamy mushroom risotto served with crispy toppings",
+    "width": 1200,
+    "height": 795
+  },
+  {
+    "id": 9,
+    "category": "main-dishes",
+    "name": "Chicken pesto pasta",
+    "description": "Grilled chicken and penne tossed with basil pesto and Parmesan.",
+    "price": 20,
+    "image": "/images/chicken-pesto-pasta.jpg",
+    "alt": "Pesto pasta with chicken served in a white dish",
+    "width": 1200,
+    "height": 800
+  },
+  {
+    "id": 10,
+    "category": "main-dishes",
+    "name": "Roasted cauliflower steak",
+    "description": "Spiced cauliflower with herbed yogurt, chickpeas, and toasted almonds.",
+    "price": 18,
+    "image": "/images/cauliflower-steak.jpg",
+    "alt": "Golden roasted cauliflower steaks served on a plate",
+    "width": 1200,
+    "height": 1797
+  },
+  {
+    "id": 11,
+    "category": "desserts",
+    "name": "Warm chocolate brownie",
+    "description": "Rich chocolate brownie served warm with vanilla ice cream.",
+    "price": 9,
+    "image": "/images/brownie.jpg",
+    "alt": "Chocolate brownie drizzled with chocolate sauce",
+    "width": 1400,
+    "height": 2098
+  },
+  {
+    "id": 12,
+    "category": "desserts",
+    "name": "New York cheesecake",
+    "description": "Creamy baked cheesecake with a buttery biscuit base and berry sauce.",
+    "price": 8,
+    "image": "/images/cheesecake.jpg",
+    "alt": "Slice of creamy cheesecake with strawberries and a biscuit base",
+    "width": 1200,
+    "height": 1600
+  },
+  {
+    "id": 13,
+    "category": "desserts",
+    "name": "Seasonal fruit tart",
+    "description": "Flaky pastry filled with vanilla cream and fresh seasonal fruit.",
+    "price": 8,
+    "image": "/images/fruit-tart.jpg",
+    "alt": "Fruit tart topped with mixed berries and kiwi",
+    "width": 1200,
+    "height": 1800
+  },
+  {
+    "id": 14,
+    "category": "desserts",
+    "name": "Tiramisu",
+    "description": "Espresso-soaked sponge layered with mascarpone and cocoa.",
+    "price": 9,
+    "image": "/images/tiramisu.jpg",
+    "alt": "Tiramisu dusted with cocoa and served with wooden spoons",
+    "width": 1200,
+    "height": 800
+  }
+]

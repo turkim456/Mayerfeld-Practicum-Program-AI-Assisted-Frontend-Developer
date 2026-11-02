@@ -13,3 +13,5 @@ The app uses a real PostgreSQL database on Neon.
 The dish id identifies a menu item. The user id links a profile to its accounts and sessions. Dishes are public menu data and do not need a user id.
 
 Run `npm.cmd run db:setup --workspace server` from the repository root to create missing tables. Better Auth manages its schema through its migration API; `schema.sql` defines only the dishes table. Setup does not seed dishes or create user accounts.
+
+Run `npm.cmd run db:seed --workspace server` to copy the 14 Week 2 dishes into Postgres. The seed uses a transaction and stable ids; repeating it updates those dishes without creating duplicates. Image files stay in the frontend; the database stores their public paths.
