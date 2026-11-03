@@ -1,8 +1,13 @@
 import express from 'express';
+import { toNodeHandler } from 'better-auth/node';
+import { auth } from './auth.js';
 import { db } from './db.js';
 
 export const app = express();
 app.disable('x-powered-by');
+
+// Better Auth handles passwords, session cookies, and request bodies.
+app.all('/api/auth/*splat', toNodeHandler(auth));
 
 app.get('/api/health', async (request, response) => {
   try {

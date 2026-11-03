@@ -1,3 +1,4 @@
+import Account from './Account.jsx';
 import Hero from './Hero.jsx';
 import Menu from './Menu.jsx';
 import restaurantImage from '../images/restaurant.jpg';
@@ -56,6 +57,7 @@ export default function Main() {
                 <button className="inline-block rounded bg-accent px-6 py-3 font-bold text-ink transition-colors hover:bg-[#c7f2e0] min-h-12 w-full cursor-pointer sm:w-auto sm:justify-self-start" type="submit">Request a table</button>
             </form>
         </section>
+        <Account />
     </main>
   );
 }
