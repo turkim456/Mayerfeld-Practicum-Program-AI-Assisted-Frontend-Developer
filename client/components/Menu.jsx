@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import QuantityStepper from './QuantityStepper.jsx';
-import { dishes } from '../data/dishes.js';
+
 
 const categories = [
   { value: 'all', label: 'All' },
@@ -24,6 +24,32 @@ function DishCard({ dish, quantity, onQuantityChange }) {
 }
 
 export default function Menu() {
+  const [dishes, setDishes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [attempt, setAttempt] = useState(0);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    async function loadMenu() {
+      setLoading(true);
+      setError('');
+      try {
+        const response = await fetch('/api/dishes', { signal: controller.signal });
+        if (!response.ok) throw new Error('Unable to load the menu.');
+        const data = await response.json();
+        if (!Array.isArray(data)) throw new Error('Invalid menu response.');
+        setDishes(data);
+      } catch (error) {
+        if (error.name !== 'AbortError') setError('Unable to load the menu. Please try again.');
+      } finally {
+        if (!controller.signal.aborted) setLoading(false);
+      }
+    }
+    loadMenu();
+    return () => controller.abort();
+  }, [attempt]);
+
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [quantities, setQuantities] = useState({});
 
@@ -59,8 +85,15 @@ export default function Menu() {
         </div>
 
         <p className="mb-4 text-center text-sm text-muted" aria-live="polite">
-          Showing {filteredDishes.length} dishes
+          {loading ? 'Loading menu…' : error ? '' : `Showing ${filteredDishes.length} dishes`}
         </p>
+        {error && (
+          <div className="mb-6 text-center">
+            <p role="alert" className="text-red-700">{error}</p>
+            <button type="button" onClick={() => setAttempt(attempt + 1)} className="mt-3 cursor-pointer rounded bg-accent px-5 py-3 font-bold">Retry menu</button>
+          </div>
+        )}
+        {!loading && !error && filteredDishes.length === 0 && <p className="mb-6 text-center">No dishes in this category yet.</p>}
         <div className="mb-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {filteredDishes.map((dish) => (
             <DishCard

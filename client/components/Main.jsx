@@ -1,7 +1,6 @@
 import Account from './Account.jsx';
 import Hero from './Hero.jsx';
 import Menu from './Menu.jsx';
-import restaurantImage from '../images/restaurant.jpg';
 
 export default function Main() {
   return (
@@ -17,7 +16,7 @@ export default function Main() {
                 <p className="mb-7 max-w-[560px] text-lg text-[#dde7ed]">At Savora, we believe that great food brings people together. Our menu pairs familiar favorites with seasonal ingredients, all prepared with care. Whether it is a relaxed lunch or a special occasion, you are always welcome at our table.</p>
                 <a className="inline-block rounded bg-accent px-6 py-3 font-bold text-ink transition-colors hover:bg-[#c7f2e0]" href="#reservation">Reserve a table &rarr;</a>
             </div>
-            <img className="h-64 w-full object-cover sm:h-80 md:h-full md:min-h-[480px] md:max-h-[540px]" src={restaurantImage} alt="Contemporary dining space with hanging plants and tables" width="1400" height="2100" loading="lazy" />
+            <img className="h-64 w-full object-cover sm:h-80 md:h-full md:min-h-[480px] md:max-h-[540px]" src="/images/restaurant.jpg" alt="Contemporary dining space with hanging plants and tables" width="1400" height="2100" loading="lazy" />
         </section>
 
         <section id="reservation" className="mx-auto max-w-7xl px-4 py-12 text-center sm:px-6 md:px-8 md:py-16">
