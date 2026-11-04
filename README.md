@@ -82,3 +82,19 @@ Use two terminals from the repository root:
 Copy `server/.env.example` to `server/.env` and fill in your own database URL and auth secret. Generate a secret with `node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"`. Never commit the real `.env` file or put secrets in client code.
 
 The server loads its local environment file automatically. On a hosting service, set these variables in the service's environment settings. `BETTER_AUTH_URL` is the public frontend origin when requests are proxied through the frontend, and `CLIENT_ORIGIN` is the allowed frontend origin.
+
+
+## Deploy the full app to Render
+
+Create a Node Web Service from this repository, branch `main`, with the repository root as the root directory. Choose Frankfurt and the Free instance.
+
+- Build: `npm ci --include=dev && npm run build`
+- Start: `npm start`
+- Health check: `/api/health`
+- Environment: `NODE_ENV=production`, your Neon `DATABASE_URL`, and a random `BETTER_AUTH_SECRET` of at least 32 characters.
+
+Render supplies `RENDER_EXTERNAL_URL`; the server uses it as the auth URL and allowed origin. React and Express share this URL, so session cookies work without cross-site configuration. If using a custom domain, set `BETTER_AUTH_URL` and `CLIENT_ORIGIN` to that HTTPS origin.
+
+The optional `render.yaml` Blueprint contains the same service settings. Database credentials belong in Render's environment settings, never Git. For a fresh database, run the setup and seed commands before serving requests. Existing database data is not reset during deployment.
+
+Verify the public home page, `/api/health`, `/api/dishes`, signup, login, refresh, and sign out after deployment.

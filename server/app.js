@@ -1,4 +1,5 @@
 import express from 'express';
+import { fileURLToPath } from 'node:url';
 import { toNodeHandler } from 'better-auth/node';
 import { auth } from './auth.js';
 import { db } from './db.js';
@@ -30,3 +31,12 @@ app.get('/api/dishes', async (request, response) => {
 app.use('/api', (request, response) => {
   response.status(404).json({ error: 'API route not found.' });
 });
+
+// Serve the built React app and API from the same public URL.
+if (process.env.NODE_ENV === 'production') {
+  const clientDist = fileURLToPath(new URL('../client/dist/', import.meta.url));
+  app.use(express.static(clientDist));
+  app.get('/{*path}', (request, response) => {
+    response.sendFile('index.html', { root: clientDist });
+  });
+}
