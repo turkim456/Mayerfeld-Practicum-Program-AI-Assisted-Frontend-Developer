@@ -1,3 +1,5 @@
+import { createHmac } from 'node:crypto';
+import { paymentRouter } from './payments.js';
 import express from 'express';
 import { fileURLToPath } from 'node:url';
 import { toNodeHandler } from 'better-auth/node';
@@ -27,6 +29,10 @@ app.get('/api/dishes', async (request, response) => {
     response.status(503).json({ error: 'The menu is temporarily unavailable.' });
   }
 });
+
+// A separate signing key is derived from the existing server-only auth secret.
+const paymentSecret = createHmac('sha256', process.env.BETTER_AUTH_SECRET).update('savora.payment-simulation.v1').digest('hex');
+app.use('/api', paymentRouter({ db, auth, origin: process.env.CLIENT_ORIGIN, secret: paymentSecret }));
 
 app.use('/api', (request, response) => {
   response.status(404).json({ error: 'API route not found.' });

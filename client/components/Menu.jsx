@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { authClient } from '../auth-client.js';
 import QuantityStepper from './QuantityStepper.jsx';
 
 
@@ -16,7 +17,7 @@ function DishCard({ dish, quantity, onQuantityChange }) {
       <div className="p-5">
         <h3 className="mb-3 font-serif text-xl font-bold leading-tight">{dish.name}</h3>
         <p className="mb-4 text-sm text-muted">{dish.description}</p>
-        <p className="text-lg font-bold">${dish.price}</p>
+        <p className="text-lg font-bold">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'SAR' }).format(dish.price)}</p>
         <QuantityStepper value={quantity} onChange={onQuantityChange} name={dish.name} />
       </div>
     </article>
@@ -53,9 +54,32 @@ export default function Menu() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [quantities, setQuantities] = useState({});
 
+  const { data: session, isPending } = authClient.useSession();
+  const [checkoutError, setCheckoutError] = useState('');
+  const [busy, setBusy] = useState(false);
+  const selected = dishes.filter(dish => (quantities[dish.id] || 0) > 0);
+  const total = selected.reduce((sum, dish) => sum + Math.round(dish.price * 100) * quantities[dish.id], 0);
+
+  async function checkout() {
+    setCheckoutError('');
+    setBusy(true);
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: selected.map(dish => ({ dishId: dish.id, quantity: quantities[dish.id] })) }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Unable to start checkout.');
+      window.location.assign(data.url);
+    } catch (error) {
+      setCheckoutError(error.message);
+      setBusy(false);
+    }
+  }
+
   // Store each dish's quantity by its id, keeping the other quantities.
   function updateQuantity(dishId, value) {
-    setQuantities((previous) => ({ ...previous, [dishId]: value }));
+    setQuantities((previous) => ({ ...previous, [dishId]: Math.max(0, Math.min(99, value)) }));
   }
 
   // Show every dish for All, otherwise show only the selected category.
@@ -104,6 +128,18 @@ export default function Menu() {
             />
           ))}
         </div>
+        <aside className="rounded border border-border bg-[#f5faf7] p-6" aria-label="Your order">
+          <h3 className="mb-4 font-serif text-2xl">Your order</h3>
+          <p className="mb-4 text-sm text-muted">Payment simulation · No card details or real money required.</p>
+          {new URLSearchParams(window.location.search).get('checkout') === 'cancelled' && <p className="mb-4" role="status">Checkout cancelled. You can choose your dishes and try again.</p>}
+          {selected.length ? <ul className="mb-4">{selected.map(dish => <li key={dish.id}>{quantities[dish.id]} × {dish.name}</li>)}</ul> : <p className="mb-4">Choose dish quantities above to start your order.</p>}
+          <p className="mb-4 font-bold">Total: {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'SAR' }).format(total / 100)}</p>
+          {!isPending && !session && <p className="mb-4"><a className="underline" href="#account">Sign in or create an account to order</a></p>}
+          {checkoutError && <p className="mb-4 text-red-700" role="alert">{checkoutError}</p>}
+          <button type="button" onClick={checkout} disabled={busy || isPending || !session || !selected.length} className="rounded bg-ink px-6 py-3 font-bold text-white disabled:opacity-40">
+            {busy ? 'Opening simulation…' : 'Order now'}
+          </button>
+        </aside>
       </div>
     </section>
   );

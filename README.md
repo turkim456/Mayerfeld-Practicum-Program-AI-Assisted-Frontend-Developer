@@ -98,3 +98,7 @@ Render supplies `RENDER_EXTERNAL_URL`; the server uses it as the auth URL and al
 The optional `render.yaml` Blueprint contains the same service settings. Database credentials belong in Render's environment settings, never Git. For a fresh database, run the setup and seed commands before serving requests. Existing database data is not reset during deployment.
 
 Verify the public home page, `/api/health`, `/api/dishes`, signup, login, refresh, and sign out after deployment.
+
+## Payment simulation
+
+This portfolio uses a clearly labeled internal payment simulation, with authenticated orders, database price snapshots, signed server-side confirmation, and approval/decline scenarios. No card data or external payment account is required. See [PAYMENT-SIMULATION.md](PAYMENT-SIMULATION.md) for setup, flow, verification, and limitations.
